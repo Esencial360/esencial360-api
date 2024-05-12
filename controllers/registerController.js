@@ -11,10 +11,10 @@ const bcrypt = require("bcrypt");
 
 const handleNewUser = async (req, res) => {
   const { user, pwd } = req.body;
-if (!user || !pwd)
-  return res
-    .status(400)
-    .json({ message: "Username and Password are required." });
+  if (!user || !pwd)
+    return res
+      .status(400)
+      .json({ message: "Username and Password are required." });
   //chek for duplicate usernames in the db
   const duplicate = usersDB.users.find((person) => person.username === user);
   if (duplicate) return res.sendStatus(409); //conflict
@@ -22,19 +22,23 @@ if (!user || !pwd)
   try {
     //encrypt password
     const hashedPwd = await bcrypt.hash(pwd, 10);
-  
+
     //store the new user
-    const newUser = { username: user, password: hashedPwd };
-    usersDB.setUsers([...usersDB, newUser]);
+    const newUser = {
+      username: user,
+      roles: { User: 2001 },
+      password: hashedPwd,
+    };
+    usersDB.setUsers([...usersDB.users, newUser]);
     await fsPromises.writeFile(
-        path.join(__dirname, '..', 'model', 'users.json'),
-        JSON.stringify(usersDB.users)
-    )
+      path.join(__dirname, "..", "model", "users.json"),
+      JSON.stringify(usersDB.users)
+    );
     console.log(usersDB.users);
-    res.status(200).json({succes: `New user ${user} created!`})
+    res.status(200).json({ succes: `New user ${user} created!` });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
 
-module.exports = { handleNewUser }
+module.exports = { handleNewUser };
