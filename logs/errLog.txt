@@ -1,1 +1,9 @@
 20240511	22:24:23	472fa2c1-b0ff-4561-8c8d-cc32dfa6af5d	Error: Not allowed by CORS
+20240512	12:34:47	62845d9d-b308-45a6-adc4-6ebb43abc41f	TypeError: next is not a function
+20240512	12:34:47	e81de62c-cb07-4108-9227-9096a531a67e	TypeError: next is not a function
+20240512	12:36:40	8decea63-015b-490e-9f15-0a9d984a1f53	TypeError: next is not a function
+20240512	12:36:40	c48555f3-7a0a-4c43-8020-949a929261e0	TypeError: next is not a function
+20240512	12:36:41	c75e6eed-9eff-4561-8f64-56451f0ef0a9	TypeError: next is not a function
+20240512	12:36:41	350c07d2-8e5c-476a-911a-4d1304d509f4	TypeError: next is not a function
+20240512	12:38:48	9ff0dcbd-daba-4d09-82a1-cf1e050cfa1d	Error: Not allowed by CORS
+20240512	17:56:19	2217f9c2-4cc7-4f9c-9dc4-3a17353e983d	Error: Not allowed by CORS

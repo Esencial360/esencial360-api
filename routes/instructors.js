@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const employeesController = require("../controllers/employeesController");
+const instructorController = require("../controllers/instructorController");
 const ROLES_LIST = require("../config/roles_list");
 const verifyRoles = require("../middleware/verifyRoles");
 
@@ -26,36 +26,47 @@ const verifyRoles = require("../middleware/verifyRoles");
  *               type: array
  *              
  */
-router.get('/', employeesController.getAllEmployees);
+router.get('/', instructorController.getAllInstructors);
 
 
 /**
  * @swagger
  * /instructors:
  *   post:
- *     summary: Create a new instructor (Admin only)
- *     tags: [Instructors]
+ *     summary: Create a new instructor
+ *     tags:
+ *       - Instructors
+ *     description: Creates a new instructor record in the database.
  *     security:
- *       - bearerAuth: [] 
+ *       - bearerAuth: []   
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
- *      
+ *           schema:
+ *             type: object
+ *             properties:
+ *               firstname:
+ *                 type: string
+ *                 description: The instructor's first name.
+ *               lastname:
+ *                 type: string
+ *                 description: The instructor's last name.
  *     responses:
  *       201:
- *         description: Created
+ *         description: Instructor created successfully.
  *         content:
  *           application/json:
- *           
+ *             schema:
+ *               $ref: '#/components/schemas/Instructor' 
  *       400:
- *         description: Bad Request - First and last name are required
+ *         description: Bad Request. First and last names are required.
  *       401:
- *         description: Unauthorized - Missing or invalid token
- *       403:
- *         description: Forbidden - Insufficient permissions 
+ *         description: Unauthorized. Missing or invalid authentication token. 
+ *       500: 
+ *         description: Internal Server Error. An unexpected error occurred while processing the request.
  */
-router.post('/', verifyRoles(ROLES_LIST.Admin), employeesController.createNewEmployee);
+router.post('/', verifyRoles(ROLES_LIST.Admin), instructorController.createNewInstructor);
 
 /**
  * @swagger
@@ -69,7 +80,7 @@ router.post('/', verifyRoles(ROLES_LIST.Admin), employeesController.createNewEmp
  *       - in: path
  *         name: id
  *         schema:
- *           type: integer
+ *           type: string
  *         required: true
  *         description: Numeric ID of the instructor to update
  *     requestBody:
@@ -90,7 +101,7 @@ router.post('/', verifyRoles(ROLES_LIST.Admin), employeesController.createNewEmp
  *       403:
  *         description: Forbidden - Insufficient permissions 
  */
-router.put('/', verifyRoles(ROLES_LIST.Admin), employeesController.updateEmployee);
+router.put('/', verifyRoles(ROLES_LIST.Admin), instructorController.updateInstructor);
 
 
 /**
@@ -105,7 +116,7 @@ router.put('/', verifyRoles(ROLES_LIST.Admin), employeesController.updateEmploye
  *       - in: path
  *         name: id
  *         schema:
- *           type: integer
+ *           type: string
  *         required: true
  *         description: Numeric ID of the instructor to delete
  *     responses:
@@ -114,7 +125,7 @@ router.put('/', verifyRoles(ROLES_LIST.Admin), employeesController.updateEmploye
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Employee' 
+ *                
  *       400:
  *         description: Bad Request - Employee ID not found
  *       401:
@@ -122,7 +133,7 @@ router.put('/', verifyRoles(ROLES_LIST.Admin), employeesController.updateEmploye
  *       403:
  *         description: Forbidden - Insufficient permissions 
  */
-router.delete('/', verifyRoles(ROLES_LIST.Admin), employeesController.deleteEmployee);
+router.delete('/', verifyRoles(ROLES_LIST.Admin), instructorController.deleteInstructor);
 
 
 /**
@@ -135,7 +146,7 @@ router.delete('/', verifyRoles(ROLES_LIST.Admin), employeesController.deleteEmpl
  *       - in: path
  *         name: id
  *         schema:
- *           type: integer
+ *           type: string
  *         required: true
  *         description: Numeric ID of the instructor
  *     responses:
@@ -144,10 +155,10 @@ router.delete('/', verifyRoles(ROLES_LIST.Admin), employeesController.deleteEmpl
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Employee'
+ *               
  *       400:
  *         description: Bad Request - Employee ID not found
  */
-router.route("/:id").get(employeesController.getEmployee);
+router.route("/:id").get(instructorController.getInstructor);
 
 module.exports = router;

@@ -4,7 +4,7 @@ const refreshTokenController = require('../controllers/refreshTokenController');
 
 /**
  * @swagger
- * /auth/refresh:
+ * /refresh:
  *   get:
  *     summary: Refresh access token
  *     tags: [Authentication]
