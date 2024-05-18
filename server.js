@@ -52,7 +52,7 @@ app.use('/refresh', require('./routes/refresh'));
 app.use('/logout', require('./routes/logout'));
 app.use('/instructors', require('./routes/instructors'));
 app.use('/blog', require('./routes/blog'));
-app.use('/news', require('./routes/News'));
+app.use('/news', require('./routes/news'));
 app.use('/users', require('./routes/users'));
 app.use(verifyJWT);
 app.use(errorHandler);

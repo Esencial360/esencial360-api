@@ -1,16 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const newsController = require("../controllers/newsController"); // Renamed controller
+const blogController = require("../controllers/blogController");
 const ROLES_LIST = require("../config/roles_list");
 const verifyRoles = require("../middleware/verifyRoles");
-
 router
-    .route("/")
-    .get(newsController.getAllNews)
-    .post(newsController.createNewNews)
-    .put(newsController.updateNews)
-    .delete(newsController.deleteNews);
+  .route("/")
+  .get(blogController.getAllBlogs)
+  .post(blogController.createNewBlog)
+  .put(blogController.updateBlog)
+  .delete(blogController.deleteBlog);
 
-router.route("/:id").get(newsController.getNews);
+router.route("/:id").get(blogController.getBlog);
 
 module.exports = router;
