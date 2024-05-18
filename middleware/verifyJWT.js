@@ -1,20 +1,23 @@
 const jwt = require('jsonwebtoken');
 
 const verifyJWT = (req, res, next) => {
-    const authHeader = req.headers.authorization || req.headers.Authorization;
-    if (!authHeader?.startsWith('Bearer ')) return res.sendStatus(401);
+    const authHeader = req.headers.authorization || req.headers.Authorization; // Support case variations
+    
+    if (!authHeader?.startsWith('Bearer ')) {
+        return res.status(401).json({ error: 'Unauthorized: Missing or invalid Authorization header' }); 
+    }
+
     const token = authHeader.split(' ')[1];
-    console.log(token)
-    jwt.verify(
-        token,
-        process.env.ACCESS_TOKEN_SECRET,
-        (err, decoded) => {
-            if (err) return res.sendStatus(403); //invalid token
-            req.user = decoded.UserInfo.username;
-            req.roles = decoded.UserInfo.roles;
-            next();
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+        if (err) {
+            console.error('JWT verification error:', err);
+            return res.status(403).json({ error: 'Forbidden: Invalid token' });
         }
-    );
-}
+        req.user = decoded.UserInfo.username;
+        req.roles = decoded.UserInfo.roles;
+        next();
+    });
+};
 
 module.exports = verifyJWT

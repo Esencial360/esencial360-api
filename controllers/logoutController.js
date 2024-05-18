@@ -1,8 +1,8 @@
 const User = require('../model/User');
 
 const handleLogout = async (req, res) => {
-    // On client, also delete the accessToken
-
+    console.log('I am in logout');
+    // On client, also delete the accessToke
     const cookies = req.cookies;
     if (!cookies?.jwt) return res.sendStatus(204); //No content
     const refreshToken = cookies.jwt;

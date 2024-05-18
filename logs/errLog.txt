@@ -7,3 +7,4 @@
 20240512	12:36:41	350c07d2-8e5c-476a-911a-4d1304d509f4	TypeError: next is not a function
 20240512	12:38:48	9ff0dcbd-daba-4d09-82a1-cf1e050cfa1d	Error: Not allowed by CORS
 20240512	17:56:19	2217f9c2-4cc7-4f9c-9dc4-3a17353e983d	Error: Not allowed by CORS
+20240516	22:04:26	b018c3cc-f886-45a3-aa21-ef0f74e7ef1a	TypeError: Cannot read properties of undefined (reading 'split')

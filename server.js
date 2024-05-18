@@ -13,63 +13,52 @@ const verifyJWT = require("./middleware/verifyJWT");
 const credentials = require("./middleware/credentials");
 const mongoose = require("mongoose");
 const connectDB = require("./config/dbConn");
+const swaggerDocument = require('./swagger.json');
 const PORT = process.env.PORT || 3000;
 
 // Connect to MongoDB
 connectDB();
 
-// Swagger Configuration
-const swaggerOptions = {
-  definition: {
-    openapi: "3.0.0",
-    info: {
-      title: "Yoga Website API",
-      version: "1.0.0",
-      description:
-        "Yoga API - Empowering your journey to wellness through yoga classes, workshops, and retreats.",
-    },
-    servers: [
-      {
-        url: `http://localhost:3000`,
-      },
-    ],
-  },
-  apis: ["./routes/*.js"],
-};
+// custom middleware logger
+app.use(logger);
 
-const swaggerSpec = swaggerJsdoc(swaggerOptions);
-
-// Middleware
-app.use(logger); 
+// Handle options credentials check - before CORS!
+// and fetch cookies credentials requirement
 app.use(credentials);
+
+// Cross Origin Resource Sharing
 app.use(cors(corsOptions));
+
+// built-in middleware to handle urlencoded form data
 app.use(express.urlencoded({ extended: false }));
+
+// built-in middleware for json 
 app.use(express.json());
+
+//middleware for cookies
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "/public")));
 
-// Swagger UI
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec)); 
+//serve static files
+app.use('/', express.static(path.join(__dirname, '/public')));
 
-// Routes
-app.use("/", require("./routes/root"));
-app.use("/register", require("./routes/register"));
-app.use("/auth", require("./routes/auth"));
-app.use("/refresh", require("./routes/refresh"));
-app.use("/logout", require("./routes/logout"));
+//swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-// Protected Routes (verifyJWT must come before these)
-app.use(verifyJWT);
-app.use("/instructors", require("./routes/instructors"));
+// routes
+app.use('/', require('./routes/root'));
+app.use('/register', require('./routes/register'));
+app.use('/auth', require('./routes/auth'));
+app.use('/refresh', require('./routes/refresh'));
+app.use('/logout', require('./routes/logout'));
+app.use('/instructors', require('./routes/instructors'));
+app.use('/blog', require('./routes/blog'));
+app.use('/news', require('./routes/News'));
 app.use('/users', require('./routes/users'));
-
-// Error Handling
+app.use(verifyJWT);
 app.use(errorHandler);
 
-// Start Server
-mongoose.connection.once("open", () => {
-  console.log("Connected to MongoDB");
-  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+mongoose.connection.once('open', () => {
+    console.log('Connected to MongoDB');
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 });
-
 
