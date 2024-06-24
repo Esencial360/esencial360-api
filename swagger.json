@@ -17,7 +17,7 @@
     "bearerAuth": {
       "type": "http",
       "scheme": "bearer",
-      "bearerFormat": "jwt" 
+      "bearerFormat": "jwt"
     }
   },
   "paths": {
@@ -33,7 +33,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "user": {
+                "email": {
                   "type": "string"
                 },
                 "pwd": {
@@ -140,7 +140,13 @@
             "schema": {
               "type": "object",
               "properties": {
-                "user": {
+                "email": {
+                  "type": "string"
+                },
+                "firstname": {
+                  "type": "string"
+                },
+                "lastname": {
                   "type": "string"
                 },
                 "pwd": {
@@ -302,6 +308,14 @@
                 "lastname": {
                   "type": "string",
                   "required": true
+                },
+                "title": {
+                  "type": "string",
+                  "required": false
+                },
+                "description": {
+                  "type": "string",
+                  "required": false
                 }
               }
             }
@@ -434,12 +448,12 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/Instructor"
+                "$ref": "#/definitions/Blog"
               }
             }
           },
           "204": {
-            "description": "No instructors found"
+            "description": "No blogs found"
           }
         },
         "security": [],
@@ -464,7 +478,11 @@
                   "type": "string",
                   "required": true
                 },
-                "image": {
+                "imageUrl": {
+                  "type": "string",
+                  "required": true
+                },
+                "categoryId": {
                   "type": "string",
                   "required": true
                 }
@@ -480,14 +498,14 @@
             }
           },
           "400": {
-            "description": "Title, description and image are required"
+            "description": "Title, description, imageUrl, and categoryId are required"
           }
         },
         "security": [],
         "tags": ["Blogs"]
       },
       "put": {
-        "summary": "Update an blog (Admin or Editor role required)",
+        "summary": "Update a blog (Admin or Editor role required)",
         "description": "Updates an existing blog. Requires Admin or Editor role.",
         "parameters": [
           {
@@ -507,7 +525,10 @@
                 "description": {
                   "type": "string"
                 },
-                "image": {
+                "imageUrl": {
+                  "type": "string"
+                },
+                "categoryId": {
                   "type": "string"
                 }
               }
@@ -532,8 +553,8 @@
         "tags": ["Blogs"]
       },
       "delete": {
-        "summary": "Delete an blog (Admin role required)",
-        "description": "Deletes an blog based on the provided blof ID. Requires Admin role.",
+        "summary": "Delete a blog (Admin role required)",
+        "description": "Deletes a blog based on the provided blog ID. Requires Admin role.",
         "parameters": [
           {
             "name": "body",
@@ -567,7 +588,7 @@
     },
     "/blog/{id}": {
       "get": {
-        "summary": "Get an blog by ID",
+        "summary": "Get a blog by ID",
         "description": "Retrieves a specific blog based on their ID.",
         "parameters": [
           {
@@ -590,6 +611,61 @@
         },
         "security": [],
         "tags": ["Blogs"]
+      }
+    },
+    "/categories": {
+      "get": {
+        "summary": "Get all categories",
+        "description": "Returns a list of all categories.",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Category"
+              }
+            }
+          },
+          "204": {
+            "description": "No categories found"
+          }
+        },
+        "security": [],
+        "tags": ["Categories"]
+      },
+      "post": {
+        "summary": "Create a new category (Admin role required)",
+        "description": "Creates a new category. Requires Admin role.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "required": true
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Category created successfully",
+            "schema": {
+              "$ref": "#/definitions/Category"
+            }
+          },
+          "400": {
+            "description": "Category name is required"
+          }
+        },
+        "security": [],
+        "tags": ["Categories"]
       }
     },
     "/news": {
@@ -759,6 +835,151 @@
         "security": [],
         "tags": ["News"]
       }
+    },
+    "/upload": {
+      "post": {
+        "summary": "Upload a file",
+        "description": "Uploads a file to the server.",
+        "consumes": ["multipart/form-data"],
+        "parameters": [
+          {
+            "name": "file",
+            "in": "formData",
+            "description": "The file to upload.",
+            "required": true,
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "File uploaded successfully"
+                },
+                "fileInfo": {
+                  "$ref": "#/definitions/FileInfo"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "No file uploaded"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/email": {
+      "post": {
+        "summary": "Sends an email",
+        "description": "Sends an email with the provided details using the configured SMTP server.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["to", "subject"],
+                "properties": {
+                  "to": {
+                    "type": "string",
+                    "format": "email",
+                    "description": "Recipient's email address"
+                  },
+                  "subject": {
+                    "type": "string",
+                    "description": "Subject of the email"
+                  },
+                  "text": {
+                    "type": "string",
+                    "description": "Plain text content of the email"
+                  },
+                  "html": {
+                    "type": "string",
+                    "description": "HTML content of the email"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Email sent successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Email sent successfully"
+                    },
+                    "messageId": {
+                      "type": "string",
+                      "description": "Unique identifier for the sent email"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - missing required fields",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Missing required fields"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Error sending email"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": ["Email"]
+      }
+    },
+    "definitions": {
+      "FileInfo": {
+        "type": "object",
+        "properties": {
+          "fileName": {
+            "type": "string",
+            "description": "The name of the uploaded file on the server."
+          },
+          "filePath": {
+            "type": "string",
+            "description": "The file path of the uploaded file on the server."
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -809,17 +1030,43 @@
         "_id": {
           "type": "string"
         },
+        "id": {
+          "type": "number"
+        },
         "title": {
           "type": "string"
         },
         "description": {
           "type": "string"
         },
-        "image": {
+        "imageUrl": {
           "type": "string"
+        },
+        "category": {
+          "type": "string",
+          "description": "Category ID"
         }
-
-      }
+      },
+      "required": ["id", "title", "description", "imageUrl", "category"]
+    },
+    "Category": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "blogs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "description": "Blog ID"
+          }
+        }
+      },
+      "required": ["name"]
     }
   },
   "tags": [

@@ -8,3 +8,12 @@
 20240512	12:38:48	9ff0dcbd-daba-4d09-82a1-cf1e050cfa1d	Error: Not allowed by CORS
 20240512	17:56:19	2217f9c2-4cc7-4f9c-9dc4-3a17353e983d	Error: Not allowed by CORS
 20240516	22:04:26	b018c3cc-f886-45a3-aa21-ef0f74e7ef1a	TypeError: Cannot read properties of undefined (reading 'split')
+20240520	19:04:01	05296db3-15b4-4740-963f-71b535ca872d	Error: Not allowed by CORS
+20240525	16:28:34	53ba4a1d-4b91-4cc6-91fe-9812acd6c78c	Error: ENOENT: no such file or directory, open 'C:\Users\BOOK\Documents\Projects\api-yoga\nodejs_web_server\uploads\1716647314376-js.png'
+20240526	20:00:14	23bec43c-cf1b-4c2f-bf3a-0a392d3b1a47	Error: ENOENT: no such file or directory, open 'C:\Users\BOOK\Documents\Projects\api-yoga\nodejs_web_server\uploads\1716746414971-firebasepng.png'
+20240526	20:02:46	d84c6d16-419c-453c-9ea6-11ddf342319f	Error: ENOENT: no such file or directory, open 'C:\Users\BOOK\Documents\Projects\api-yoga\nodejs_web_server\uploads\1716746566892-firebasepng.png'
+20240526	20:06:09	cbbdb400-a41c-401b-a442-4516667e2ec5	Error: ENOENT: no such file or directory, open 'C:\Users\BOOK\Documents\Projects\api-yoga\nodejs_web_server\uploads\1716746769936-firebasepng.png'
+20240529	23:21:50	c667aa44-fb56-40fa-9ebb-0ce023f5bebe	TypeError: Cannot read properties of undefined (reading 'authorization')
+20240529	23:31:41	11eac156-7167-4284-9676-5b576f0d6625	TypeError: Cannot read properties of undefined (reading 'username')
+20240529	23:32:22	7ab0dc2d-962f-46a0-9fb1-088f450b8511	TypeError: Cannot read properties of undefined (reading 'username')
+20240529	23:33:17	0b5c30ad-bc3e-497e-ba2c-8c9d25eebac8	TypeError: Cannot read properties of undefined (reading 'username')

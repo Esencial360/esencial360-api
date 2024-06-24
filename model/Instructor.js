@@ -9,7 +9,16 @@ const instructorSchema = new Schema({
     lastname: {
         type: String,
         required: true
-    }
+    },
+    title: {
+        type: String, 
+    }, 
+    description: {
+        type: String
+    },
+    videos: [{
+        type: String
+      }]
 })
 
 module.exports = mongoose.model('Instructor', instructorSchema)

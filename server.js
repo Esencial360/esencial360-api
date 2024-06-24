@@ -48,12 +48,15 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/', require('./routes/root'));
 app.use('/register', require('./routes/register'));
 app.use('/auth', require('./routes/auth'));
-app.use('/refresh', require('./routes/refresh'));
-app.use('/logout', require('./routes/logout'));
+app.use('/refresh', require('./routes/refresh'));;
 app.use('/instructors', require('./routes/instructors'));
 app.use('/blog', require('./routes/blog'));
 app.use('/news', require('./routes/news'));
 app.use('/users', require('./routes/users'));
+app.use('/categories', require('./routes/categories'));
+app.use('/upload', require('./routes/fileUpload'));
+app.use('/logout', require('./routes/logout'));
+app.use('/email', require('./routes/email'));
 app.use(verifyJWT);
 app.use(errorHandler);
 

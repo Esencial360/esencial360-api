@@ -1,4 +1,5 @@
 const Blog = require("../model/Blog");
+const Category = require("../model/Category");
 
 const getAllBlogs = async (req, res) => {
   const blogs = await Blog.find();
@@ -7,18 +8,27 @@ const getAllBlogs = async (req, res) => {
 };
 
 const createNewBlog = async (req, res) => {
-  if (!req?.body.title || !req?.body.description || !req?.body.image) {
-    return res
-      .status(400)
-      .json({ message: "Title, description and image are required" });
+  console.log(req.body)
+  if (!req?.body?.imageUrl || !req?.body?.title || !req?.body?.description || !req?.body?.categoryId) {
+    return res.status(400).json({ message: 'All fields (imageUrl, title, description, categoryId) are required' });
   }
 
   try {
+    const category = await Category.findOne({ _id: req.body.categoryId }).exec();
+    if (!category) {
+      return res.status(404).json({ message: `Category ID ${req.body.categoryId} not found` });
+    }
+
     const result = await Blog.create({
+      id: req.body.id,
+      imageUrl: req.body.imageUrl,
       title: req.body.title,
       description: req.body.description,
-      image: req.body.image,
+      category: category._id,
     });
+    category.blogs.push(result._id);
+    await category.save();
+
     res.status(201).json(result);
   } catch (err) {
     console.error(err);
@@ -38,7 +48,7 @@ const updateBlog = async (req, res) => {
   }
   if (req.body?.title) blog.title = req.body.title;
   if (req.body?.description) blog.description = req.body.description;
-  if (req.body?.image) blog.image = req.body.image;
+  if (req.body?.imageUrl) blog.imageUrl = req.body.imageUrl;s
   const result = await blog.save();
   res.json(result);
 };
