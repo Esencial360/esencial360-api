@@ -8,16 +8,17 @@ const getAllInstructors = async (req, res) => {
 };
 
 const createNewInstructor = async (req, res) => {
-  if (!req?.body.firstname || !req?.body.lastname) {
+  if (!req?.body.firstname || !req?.body.lastname || !req?.body.email) {
     return res
       .status(400)
-      .json({ message: "First and last names are required" });
+      .json({ message: "First, last names and email are required" });
   }
 
   try {
     const result = await Instructor.create({
       firstname: req.body.firstname,
       lastname: req.body.lastname,
+      email: req.body.email,
       title: req.body.title, 
       description: req.body.description
     });
@@ -28,7 +29,6 @@ const createNewInstructor = async (req, res) => {
 };
 
 const updateInstructor = async (req, res) => {
-  console.log(req.body)
   if (!req?.body?._id) {
     return res.status(400).json({ message: "ID parameter is required." });
   }
@@ -37,15 +37,17 @@ const updateInstructor = async (req, res) => {
   if (!instructor) {
     return res
       .status(204)
-      .json({ message: `Instructor ID ${req.body._id} not found` });
+      .json({ message: `Instructor ID ${req.body.id} not found` });
   }
   if (req.body?.firstname) instructor.firstname = req.body.firstname;
   if (req.body?.lastname) instructor.lastname = req.body.lastname;
+  if (req.body?.email) instructor.email = req.body.email;
   if (req.body?.title) instructor.title = req.body.title;
   if (req.body?.description) instructor.description = req.body.description;
   if(req.body?.videos) instructor.videos = req.body.videos;
   const result = await instructor.save();
   res.json(result);
+  console.log(result)
 };
 
 const deleteInstructor = async (req, res) => {

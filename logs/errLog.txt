@@ -17,3 +17,29 @@
 20240529	23:31:41	11eac156-7167-4284-9676-5b576f0d6625	TypeError: Cannot read properties of undefined (reading 'username')
 20240529	23:32:22	7ab0dc2d-962f-46a0-9fb1-088f450b8511	TypeError: Cannot read properties of undefined (reading 'username')
 20240529	23:33:17	0b5c30ad-bc3e-497e-ba2c-8c9d25eebac8	TypeError: Cannot read properties of undefined (reading 'username')
+20240624	22:34:07	87531cb7-487d-478c-bc60-1a7c9a3cb19a	Error: Not allowed by CORS
+20240624	22:34:07	3fe02c15-59e6-464a-ac78-8b851bc88a6f	Error: Not allowed by CORS
+20240624	22:34:07	e3aab0a6-f6fb-4004-8d39-5f9fdb8251d4	Error: Not allowed by CORS
+20240624	22:34:07	f3ba067c-fde3-4014-b823-7e30516f3614	Error: Not allowed by CORS
+20240624	22:34:12	155cf82e-a594-416e-878a-78b308e6d8c6	Error: Not allowed by CORS
+20240624	22:34:12	a8b2911e-c803-426a-8514-44759d644f7b	Error: Not allowed by CORS
+20240624	22:34:13	24577f93-6849-48af-8a48-f91e7937813e	Error: Not allowed by CORS
+20240624	22:34:13	1a806504-9804-47d6-815b-ffa5aefb8ab7	Error: Not allowed by CORS
+20240624	22:34:13	9fc026a0-1e41-4c1c-862f-b0c8a96f5b7f	Error: Not allowed by CORS
+20240624	22:34:13	16f9c437-a35e-4c28-9c63-bb349602ce34	Error: Not allowed by CORS
+20240728	22:42:02	433bedb0-e464-4c3c-98c1-b8df65fac725	UnauthorizedError: Unauthorized
+20240728	22:42:02	b78d3bdc-f54c-4e5a-b6c5-0fe1bab4b5c9	UnauthorizedError: Unauthorized
+20240728	22:42:30	604c79ca-f9d2-439b-9323-c27a1002abf2	UnauthorizedError: Unauthorized
+20240728	22:42:30	f7d1959f-26e1-44d6-a842-b8cb1c1dfea9	UnauthorizedError: Unauthorized
+20240728	22:42:32	68fd8db3-2c7d-4901-ba02-9c9fc84b3ce3	UnauthorizedError: Unauthorized
+20240728	22:42:32	3b761f0a-e06b-4d0f-90f6-590fa26706e8	UnauthorizedError: Unauthorized
+20240729	21:07:01	ed4e6282-800f-4e7d-bd54-1c12feba2350	Error: Not allowed by CORS
+20240729	21:07:01	13d0a359-16e0-4eb8-89be-1ab2c363dee8	Error: Not allowed by CORS
+20240729	21:07:01	ab48472a-7424-4054-a361-588b88753cde	Error: Not allowed by CORS
+20240729	21:07:01	f94a4396-29c5-436e-9add-a3b562895b87	Error: Not allowed by CORS
+20240729	21:35:30	3b6021a7-08b0-458a-a1ce-2cc9ab38c05f	Error: Not allowed by CORS
+20240729	21:35:30	3bbf36ed-ba68-4646-9976-7564730cfca7	Error: Not allowed by CORS
+20240729	21:35:31	490a0b3a-cd35-4105-a685-fd6fbfffec4f	Error: Not allowed by CORS
+20240729	21:35:31	c506f2dc-7dbf-45bd-b45e-bffb347b7fde	Error: Not allowed by CORS
+20240729	21:35:31	a52c17a1-48c1-4f2d-99ca-e00a882372aa	Error: Not allowed by CORS
+20240729	21:35:31	5f077a5f-d33b-4e9d-aeab-1a6a5c99f834	Error: Not allowed by CORS

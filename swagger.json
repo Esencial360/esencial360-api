@@ -309,6 +309,10 @@
                   "type": "string",
                   "required": true
                 },
+                "email": {
+                  "type": "string",
+                  "required": true
+                },
                 "title": {
                   "type": "string",
                   "required": false
@@ -355,6 +359,22 @@
                 },
                 "lastname": {
                   "type": "string"
+                }
+                ,
+                "email": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "videos": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 }
               }
             }
@@ -1021,6 +1041,18 @@
         },
         "lastname": {
           "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "videos": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
