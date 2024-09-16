@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server",
     "dev": "nodemon server",
-    "build": "npm run vercel-build"
+    "build": "npm run build"
   },
   "author": "Pablo Gonzalez",
   "license": "Esencial360",
